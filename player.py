@@ -10,7 +10,7 @@ SCREEN_WIDTH, SCREEN_HEIGHT = 800, 480  # Adjust based on your display
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Load video
-video_path = "Better Call Saul.mp4"
+video_path = "Commercial\Better-Call-Saul.mp4"
 clip = mp.VideoFileClip(video_path)
 
 # Convert video to pygame surface
