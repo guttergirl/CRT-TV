@@ -24,5 +24,3 @@ def playVideo(file_path):
 
     video.release()
     cv2.destroyAllWindows()
-
-playVideo('Better-Call-Saul.mp4')
