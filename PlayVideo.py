@@ -9,18 +9,29 @@ def playVideo(file_path):
     cv2.namedWindow(window_name, cv2.WND_PROP_FULLSCREEN)
     cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
+    paused = False  # Pause state
+
     while True:
-        ret, frame = video.read()
-        if not ret:
+        if not paused:  # Only read frames when not paused
+            ret, frame = video.read()
+            if not ret:
+                break
+
+            audio_frame, val = player.get_frame()
+
+            if val != 'eof' and frame is not None:
+                cv2.imshow(window_name, frame)
+
+        
+        key = cv2.waitKey(25) & 0xFF
+
+        if key == ord('q'):  # Quit on 'q'
             break
-
-        audio_frame, val = player.get_frame()
-
-        if val != 'eof' and frame is not None:
-            cv2.imshow('Video', frame)
-
-        if cv2.waitKey(25) & 0xFF == ord('q'):
-            break
+        elif key == ord('w'):  # Toggle pause on 'w'
+            paused = not paused
+            player.set_pause(paused)  # Pause/resume 
 
     video.release()
     cv2.destroyAllWindows()
+
+playVideo("Better-Call-Saul.mp4")
